@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import Header from './components/header/Header';
 import Keypad from './components/keypad/Keypad';
@@ -19,6 +19,9 @@ function App() {
   const [isCalculated,setIsCalculated] = useState<boolean>(false);
   const [result,setResult] = useState<string>("0");
 
+  useEffect(() => {
+    console.log(result);
+  },[result])
 
   const updateRes = (value:number|string) => {
 
@@ -28,9 +31,13 @@ function App() {
       
     }else if(result !== "0" && typeof value === "number" && isCalculated === false){
       setResult(result + value.toString())
-    }else if(result !== "0" && typeof value === "number" && isCalculated === true){
+    }else if(result !== "0" && typeof value === "number" && isCalculated === true && result[0] !== "-"){
+   
       setResult(value.toString())
       setIsCalculated(false);
+    }else if(result[0] === "-" && isCalculated === true){
+      setIsCalculated(false);
+      setResult(result + value.toString())
     }
    
     if(result === "0" && typeof value === "string" ){
@@ -40,13 +47,15 @@ function App() {
       setResult(result + value);
 
     }else if(result !== "0" && typeof value === "string" && isCalculated === true){
+      
       setResult(result + value);
       setIsCalculated(false)
     }
   };
 
   const calculate = (value?:string) => {
-    if(value !== undefined && value !== "."){
+    if(value !== undefined && value !== "." && result[0] !== "-"){
+      
       console.log(value);
       const res:string = eval(result) + value;
       setResult(res);
@@ -55,7 +64,10 @@ function App() {
       
       setResult(eval(result).toString());
       setIsCalculated(true);
+
     }else if(value === "." && result.includes(".")){
+      setResult(result + value);
+    }else if(value !== undefined && result[0] === "-"){
       setResult(result + value);
     }
     
@@ -115,7 +127,9 @@ function App() {
       setResult(res);
       
 
-    }else if(result.includes("-")){
+    }else if(result.includes("-") && result[0] !== "-"){
+      
+      
       let splitNum = result.split("-");
 
       let num1 = splitNum[0];
@@ -150,7 +164,10 @@ function App() {
     }else{
       let posToNeg = parseInt(result);
       posToNeg = posToNeg * -1;
+      
       setResult(posToNeg.toString());
+      
+      
    }
   }
 
