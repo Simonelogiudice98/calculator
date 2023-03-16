@@ -1,0 +1,29 @@
+@import '../../shared/partials/variables';
+
+button{
+    font-size: 20px;
+    
+}
+
+.pushButton{
+    max-width: 100px;
+    height: 100px;
+    width: 100%;
+    
+}
+
+.zeroButton{
+    max-width: 200px;
+    height: 100px;
+    width: 100%;
+}
+
+.numbersButton{
+    background-color: $white;
+    cursor: pointer;
+}
+
+.symbolsButton{
+    background-color: $orange;
+    cursor: pointer;
+}

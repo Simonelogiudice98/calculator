@@ -1,0 +1,12 @@
+@import '../../shared/partials/variables';
+
+
+.header{
+    background-color: $orange;
+    padding: 10px 0px;
+    
+    h1{
+        text-align: center;
+        color: $white;
+    }
+}
